@@ -30,6 +30,30 @@ public class Cliente extends Usuario{
         super(id, nome, email, senha, perfil, habilitado);
     }
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,6 +63,8 @@ public class Cliente extends Usuario{
                 Objects.equals(cpf, cliente.cpf) &&
                 Objects.equals(dataNascimento, cliente.dataNascimento);
     }
+
+
 
     @Override
     public int hashCode() {
