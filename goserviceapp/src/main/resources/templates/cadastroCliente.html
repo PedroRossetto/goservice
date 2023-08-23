@@ -1,12 +1,13 @@
 <!doctype html>
-<html xmlns:th="http://thymeleaf.org" th:replace="fragments/layout :: layout(~{::title}, ~{::#content})">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/layout :: layout(~{::title}, ~{::#content})">
 <head>
     <title>Cadastro | GoService</title>
 </head>
 <body>
+
 <main id="content" class="d-flex justify-content-center align-items-center" style="min-height: 100vh">
     <div style="width: 22rem">
-        <form method="post" th:action="@{/auth/signup}">
+        <form method="post" th:action="@{/auth/cadastro}">
             <h1 class="h3 mb-3 fw-normal text-center">Cadastre-se | GoService</h1>
 
             <div th:if="${successMessage != null}" th:text="${successMessage}" class="alert alert-success" role="alert"></div>
@@ -53,5 +54,6 @@
         });
     </script>
 </main>
+
 </body>
 </html>
