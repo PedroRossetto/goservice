@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final String[] PUBLIC_ROUTS = {"/", "/home", "/auth/**"};
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -20,11 +21,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .requestMatchers("/**")
+                .requestMatchers(PUBLIC_ROUTS)
                 .permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/prestador/**").hasRole("PRESTADOR")
+                .requestMatchers("/cliente/**").hasRole("CLIENTE")
                 .anyRequest()
-                .authenticated();
-
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/auth/login")
+                .defaultSuccessUrl("/");
         return http.build();
     }
 }
