@@ -4,6 +4,8 @@ import com.soulcode.goserviceapp.domain.Prestador;
 import com.soulcode.goserviceapp.domain.Servico;
 import com.soulcode.goserviceapp.repository.PrestadorRepository;
 import com.soulcode.goserviceapp.repository.ServicoRepository;
+import com.soulcode.goserviceapp.service.exceptions.UsuarioNaoAutenticadoException;
+import com.soulcode.goserviceapp.service.exceptions.UsuarioNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -44,11 +46,11 @@ public class PrestadorService {
                 return prestador.get();
             }
             else{
-                throw new RuntimeException("Prestador não encontrado");
+                throw new UsuarioNaoEncontradoException();
             }
         }
         else{
-            throw new RuntimeException("Prestador não autenticado.");
+            throw new UsuarioNaoAutenticadoException();
         }
     }
 
