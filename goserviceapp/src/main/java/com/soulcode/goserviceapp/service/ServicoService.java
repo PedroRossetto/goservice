@@ -38,10 +38,14 @@ public class ServicoService {
     }
 
     public Servico update(Servico servico){
-        Servico updateServico = this.findById(servico.getId());
+            Servico updateServico = this.findById(servico.getId());
             updateServico.setNome(servico.getNome());
             updateServico.setDescricao(servico.getDescricao());
             updateServico.setCategoria(servico.getCategoria());
             return servicoRepository.save(servico);
+    }
+
+    public List<Servico> findByPrestadorEmail(String email) {
+        return servicoRepository.findByPrestadorEmail(email);
     }
 }
