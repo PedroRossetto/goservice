@@ -9,6 +9,7 @@ import com.soulcode.goserviceapp.domain.enums.StatusAgendamento;
 import com.soulcode.goserviceapp.repository.AgendamentoRepository;
 import com.soulcode.goserviceapp.service.exceptions.StatusAgendamentoImutavelException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,12 @@ public class AgendamentoService {
 
     @Autowired
     private PrestadorService prestadorService;
+
+    @Cacheable(cacheNames = "redisCache")
+    public List<Agendamento> findAll(){
+        System.err.println("BUSCANDO NO BANCO DE DADOS...");
+        return agendamentoRepository.findAll();
+    }
 
     public Agendamento findById(Long id){
         Optional<Agendamento> agendamento = agendamentoRepository.findById(id);

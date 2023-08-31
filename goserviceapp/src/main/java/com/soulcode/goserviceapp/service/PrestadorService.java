@@ -3,10 +3,10 @@ package com.soulcode.goserviceapp.service;
 import com.soulcode.goserviceapp.domain.Prestador;
 import com.soulcode.goserviceapp.domain.Servico;
 import com.soulcode.goserviceapp.repository.PrestadorRepository;
-import com.soulcode.goserviceapp.repository.ServicoRepository;
 import com.soulcode.goserviceapp.service.exceptions.UsuarioNaoAutenticadoException;
 import com.soulcode.goserviceapp.service.exceptions.UsuarioNaoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,14 @@ public class PrestadorService {
 
     @Autowired
     private ServicoService servicoService;
+
+
+
+    @Cacheable(cacheNames = "redisCache")
+    public List<Prestador> findAll(){
+        System.err.println("BUSCANDO NO BANCO DE DADOS...");
+        return prestadorRepository.findAll();
+    }
 
     public Prestador findById(Long id){
         Optional<Prestador> prestador = prestadorRepository.findById(id);
